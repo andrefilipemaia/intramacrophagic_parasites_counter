@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<analysisprotocol name="GA Parasites96 V05" description="DAPI, Cell Mask" mode="EXSAMPENG" lock="false" >
+<DataSaveOptions LG2="true" XLS="true" CommaText="false" TabText="false" XML="true" XSLT="" ResultsAll="true" GS_EXCEL="false" miner="false" UseStackName="false" ShowZeroSummaryRow="true" >
+</DataSaveOptions>
+<exsampengspecificdata >
+<ex_sample_engine_settings ex_sample_engine_settings="default" >
+<channels channel_manager="default" >
+<channel_setting channel_number="0" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="1" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="2" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="3" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="4" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="5" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="6" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="7" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="8" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="9" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="10" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="11" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="12" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="13" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="14" channel_label="" image_name="" channel_status="1" />
+<channel_setting channel_number="15" channel_label="" image_name="" channel_status="1" />
+</channels>
+<template_settings template_manager="default" >
+<template name="seed" result="seed" color="00FF0000" >
+<segment name="NTH segmentation" guid="7436122b-f9b0-4957-aa46-d6c46b9e8eec" option="ScaleCount 438, Sensitivity 0.21, Enabled 1, Color 3, PerformExclusions 0, SubtargetFilled 1, RemoveSinglePixelTarget 1, TargetSizeActive 0, TargetSize 0.000000, SelPreviewChanl 0, FiltersToOutputImage 1, PreciseMaskMode 1, ExpandSensitivityRange 1, AdvSensitivityRange 1.250000, SetPreferredMorphology 1, UseAutoThreshold 0, ShapeDetection No_restrictions, LowBackground 1" channel="0" destination_channel="I321" />
+<post_processing >
+<transform name="Erosion (Binary)" guid="16e8a36f-d702-4818-a693-aa2c5b0569af" channel="I321" destination_channel="I322" option="Enabled 1, Value 12, Maximum 127, Minimum 3, Step 2, Shape 1" />
+</post_processing>
+<pre_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+<post_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+</template>
+<template name="Nuc" result="Nuc" color="00FF0000" >
+<segment name="NTH segmentation" guid="7436122b-f9b0-4957-aa46-d6c46b9e8eec" option="ScaleCount 365, Sensitivity 0.21, Enabled 1, Color 3, PerformExclusions 1, SubtargetFilled 1, RemoveSinglePixelTarget 1, TargetSizeActive 0, TargetSize 0.000000, SelPreviewChanl 0, FiltersToOutputImage 1, PreciseMaskMode 1, ExpandSensitivityRange 1, AdvSensitivityRange 1.250000, SetPreferredMorphology 1, UseAutoThreshold 0, ShapeDetection No_restrictions, LowBackground 1, Exclusions ExclLabel22&#62;0.7 ExclLabel38&#62;0.7" channel="0" destination_channel="I242" />
+<post_processing >
+<transform name="Clump breaking" guid="b89fa61a-e3c7-461f-9101-819dbce54853" channel="I242,I322" destination_channel="I323" option="Enabled 1, MinScale 2, Radius 7, IncludeSecondaryTargets 1" />
+<transform name="Border Object Removal" guid="d80f22e9-10f6-4652-9692-92d41f4cf03c" channel="I323" destination_channel="4" option="Enabled 1, Distance 30, RemovalMode ByTouch, TouchMode 1, " />
+</post_processing>
+<pre_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+<post_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+</template>
+<template name="CellMask" result="CellMask" color="0000FFFF" >
+<segment name="Gray scale segmentation" guid="f814ed56-9a0e-472d-8754-5dced6ebc02f" option="Minimum 182.74, Maximum 4083.00, Enabled 1, Color 3, PerformExclusions 1, SubtargetFilled 0, RemoveSinglePixelTarget 1, TargetSizeActive 0, TargetSize 0.000000, SelPreviewChanl 1, FiltersToOutputImage 1, PreciseMaskMode 1, ExpandSensitivityRange 0, AdvSensitivityRange 4.000000, SetPreferredMorphology 1, UseAutoThreshold 0, ShapeDetection No_restrictions, LowBackground 1, Exclusions ExclLabel18&#62;100" channel="1" destination_channel="I243" />
+<post_processing >
+<transform name="Clump breaking" guid="b89fa61a-e3c7-461f-9101-819dbce54853" channel="I243,4" destination_channel="I244" option="Enabled 1, MinScale 2, Radius 2, IncludeSecondaryTargets 0" />
+<transform name="Fill Holes" guid="4e187a4d-c518-4d40-9335-b1b466744f97" channel="I244" destination_channel="I375" option="" />
+<transform name="Border Object Removal" guid="d80f22e9-10f6-4652-9692-92d41f4cf03c" channel="I375" destination_channel="I245" option="Enabled 1, Distance 30, RemovalMode ByTouch, TouchMode 1, " />
+</post_processing>
+<pre_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+<post_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+</template>
+<template name="Parasites DAPI" result="Parasites DAPI" color="0000FF00" >
+<segment name="Multi-scale segmentation" guid="e6b450b5-b8d5-4206-b93e-1474c42936e6" option="MinimumSize 0.25, MaximumSize 1, Unit pixel, ScaleCount 2, Sensitivity 0.2, Enabled 1, Color 3, PerformExclusions 1, SubtargetFilled 1, RemoveSinglePixelTarget 1, TargetSizeActive 0, TargetSize 0.000000, SelPreviewChanl 0, FiltersToOutputImage 1, PreciseMaskMode 1, ExpandSensitivityRange 0, AdvSensitivityRange 1.300000, SetPreferredMorphology 1, UseAutoThreshold 0, ShapeDetection No_constraints, LowBackground 0, Exclusions ExclLabel22&#62;0.5" channel="0" destination_channel="I386" />
+<post_processing >
+<transform name="Sieve (Binary)" guid="259a15b2-5f9d-47a6-9b5b-4d1fa3928988" channel="I386" destination_channel="I394" option="Enabled 1, Criteria 7, Threshold 365.229" />
+<transform name="Border Object Removal" guid="d80f22e9-10f6-4652-9692-92d41f4cf03c" channel="I394" destination_channel="5" option="Enabled 1, Distance 30, RemovalMode ByRemoteness, TouchMode 1, " />
+</post_processing>
+<pre_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="" destination_channel="" option="MacroName , Enable 1" />
+<post_process_macro name="Macro" guid="d4874593-1ac4-4ab1-a07b-e1a3029b2a96" channel="5" destination_channel="6" option="MacroName Ch6-Ch5 to ch7, Enable 1" />
+</template>
+</template_settings>
+<link_settings link_manager="default" >
+<link_setting name="Cell_Nuc" type="0" prime_source="CellMask" second_source="Nuc" comment="" relation="0" >
+<link_setting_option name="Overlap" guid="65c86e60-be59-42f7-b8f2-108669a96a73" option="LinkType 1, OverlapType 4, OverlapPercent 75, FullVsPartial 0, BigVsSmall 0, LargeVsTiny 0, Base 1, ShareTargets 0, DisplayMeasures 0, MatchedType 0" />
+</link_setting>
+<link_setting name="CellMask_Parasites" type="0" prime_source="CellMask" second_source="Parasites DAPI" comment="" relation="1" >
+<link_setting_option name="Overlap" guid="65c86e60-be59-42f7-b8f2-108669a96a73" option="LinkType 1, OverlapType 1, OverlapPercent 100, FullVsPartial 0, BigVsSmall 0, LargeVsTiny 0, Base 1, ShareTargets 0, DisplayMeasures 0, MatchedType 0" />
+</link_setting>
+<composed_link name="Cell_Nuc_ParasitesDAPI" type="1" prime_source="Cell_Nuc" second_source="CellMask_Parasites" comment="" relation="0" prime_match_dsp="Cell_Nuc\CellMask" second_match_dsp="CellMask_Parasites\CellMask" >
+<link_setting_option name="Overlap" guid="65c86e60-be59-42f7-b8f2-108669a96a73" option="LinkType 1, OverlapType 1, OverlapPercent 100, FullVsPartial 0, BigVsSmall 0, LargeVsTiny 0, Base 1, ShareTargets 0, DisplayMeasures 0, MatchedType 0" />
+</composed_link>
+</link_settings>
+<user_defined_measures >
+<measure label="Count Nuc1" name="Count Nuc1" equation="[Count&#60;\Nuc&#62;]" >
+</measure>
+<measure label="Count Parasites" name="Count Parasites" equation="[Count&#60;\Parasites DAPI&#62;]" >
+</measure>
+<measure label="Count Cell_Nuc" name="Count Cell_Nuc" equation="[Count&#60;\Cell_Nuc\Nuc&#62;]" >
+</measure>
+<measure label="Count_Cell_Nuc_Parasites" name="Count_Cell_Nuc_Parasites" equation="[Count&#60;\Cell_Nuc_ParasitesDAPI\Nuc&#62;]" >
+</measure>
+<measure label="Count Parasites per Cell" name="Count Parasites per Cell" equation="[Count&#60;\Cell_Nuc_ParasitesDAPI\All:Parasites DAPI&#62;]" >
+</measure>
+</user_defined_measures>
+<targetpath_settings targetpath_manager="default" >
+<targetpath name="CellMask_Parasites\All:Parasites DAPI" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc_ParasitesDAPI\CellMask" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc_ParasitesDAPI\All:Parasites DAPI" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="seed" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Nuc" >
+<measures >
+<measure_setting channel_number="0" individual_measure="0" measure_id="100" measure_label="Count Nuc1" measure_unit="" measure_source="Ch 1" complex_measure_name="Count Nuc1" summary_id="413" owner="1" />
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc\Nuc" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="CellMask" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc\CellMask" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="CellMask_Parasites\CellMask" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Parasites DAPI" >
+<measures >
+<measure_setting channel_number="1" individual_measure="0" measure_id="100" measure_label="Count Parasites" measure_unit="" measure_source="Ch 2" complex_measure_name="Count Parasites" summary_id="413" owner="1" />
+</measures>
+</targetpath>
+<targetpath name="CellMask_Parasites\Parasites DAPI" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc" >
+<measures >
+<measure_setting channel_number="0" individual_measure="0" measure_id="100" measure_label="Count Cell_Nuc" measure_unit="" measure_source="Ch 1" complex_measure_name="Count Cell_Nuc" summary_id="413" owner="1" />
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc_ParasitesDAPI\Nuc" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="CellMask_Parasites" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc_ParasitesDAPI\Parasites DAPI" >
+<measures >
+</measures>
+</targetpath>
+<targetpath name="Cell_Nuc_ParasitesDAPI" >
+<measures >
+<measure_setting channel_number="0" individual_measure="0" measure_id="100" measure_label="Count_Cell_Nuc_Parasites" measure_unit="" measure_source="Ch 1" complex_measure_name="Count_Cell_Nuc_Parasites" summary_id="413" owner="1" />
+<measure_setting channel_number="0" individual_measure="1" measure_id="100" measure_label="Count Parasites per Cell" measure_unit="" measure_source="Ch 1" complex_measure_name="Count Parasites per Cell" summary_id="-1" owner="1" />
+<measure_setting channel_number="0" individual_measure="0" measure_id="100" measure_label="Count Parasites per Cell" measure_unit="" measure_source="Ch 1" complex_measure_name="Count Parasites per Cell" summary_id="414" owner="1" />
+</measures>
+</targetpath>
+</targetpath_settings>
+<cell_tracking enabled="false" track_targetset="" tracking_method="proximity" relative_threshold = "3" outlier_detection = "8" number_PF_wieght = "2" threshold_factor_PF = "5" >
+<measures >
+</measures>
+</cell_tracking>
+<Classifiers/><stack_transform_settings stack_transform_manager="default" >
+</stack_transform_settings>
+<GroupSummary GroupBy="None" Plate="Well" Field="All" Time_Z="Each" >
+</GroupSummary>
+</ex_sample_engine_settings>
+</exsampengspecificdata>
+<macro_definitions >
+AQA6AAAAAQAAANMHBAAAAAEAAADUBxwAAAACAAAAAgAEAAAAUAAAAAMACAAA
+AAMAAAAxLjAABAAEAAAAAAAAAIU17gMAAAEAAACGNRQAAAACAAAARXhwb3J0
+ZWQgTWFjcm9zAIc1tgMAAAMAAADTBwQAAAABAAAA1AeiAwAABAAAACw1BAAA
+AP////8iNREAAABQLkNoNi1DaDUgdG8gY2g3ACM1DgAAAAUAAABWNQQAAAAm
+AAAAJDUsAAAABgAAAM00BAAAAAAAAADONAQAAAAAAAAAzzQEAAAAjAAAANA0
+BAAAAFsAAAAlNVQAAAAHAAAA3DQNAAAACAAAAHN1YnRyYWN0AN00CAAAAAkA
+AABBTE0A3jQWAAAACgAAAFNlcHRlbWJlciA4LCAyMDE0AN80DQAAAAsAAAAw
+NDoxOCBwbQAmNSIAAAAMAAAA0wcEAAAAAQAAANQHDgAAAA0AAADrNAQAAAAB
+AACDJzVyAAAADgAAANMHBAAAAAEAAADUB14AAAAPAAAA6zQEAAAAAQAAA+w0
+DgAAABAAAADrNAQAAAABAAAD7TQ2AAAAEQAAAL80BAAAAAAAAD/ANAQAAAAA
+AAA/wTQEAAAACgAAAMI0BAAAAAoAAADDNAQAAAAAAAAAKDXdAQAAEgAAANMH
+BAAAAAEAAADUB8kBAAATAAAA+jQEAAAAAAAAAPs0GAAAABQAAABQb2ludDog
+U3VidHJhY3Rpb24uAPw0LAAAABUAAADNNAQAAABGAAAAzjQEAAAALAAAAM80
+BAAAAFQAAADQNAQAAABFAAAA/TRoAAAAFgAAANMHBAAAAAEAAADUB1QAAAAX
+AAAA6zQEAAAAAQAAg+w0BAAAAA0AAADtNDYAAAAYAAAAvzQEAAAAAAAAP8A0
+BAAAAAAAAD/BNAQAAAAKAAAAwjQEAAAACgAAAMM0BAAAAAAAAAD+NBgAAAAZ
+AAAA0wcEAAAAAQAAANQHBAAAABAAAAD/NCIAAAAaAAAAKTUEAAAAhhUAACo1
+BAAAAAAAAAArNQQAAAAAAAAAADWxAAAAGwAAAO4dBAAAAAAAAADvHQQAAAAF
+AAAA8B0EAAAABAAAAPEdBAAAAAYAAADyHX8AAAAcAAAATx0RAAAAHQAAACNT
+dWJ0cmFjdGlvbgBSHQQAAAAHAAAAUx0EAAAA/////1wdBAAAAAAAAABUHQQA
+AAACAAAAVR0EAAAAAQAAAFYdBAAAAAAAAABXHQQAAAAAAAAAWR0EAAAAAQAA
+AFodBAAAAAAAAABbHQQAAAADAAAAKjUEAAAAAAAAACs1BAAAAAAAAAAvNUAA
+AAAeAAAAL0wOAAAAHwAAAEhlbHZldGljYQAwTAQAAABQAAAAMkwEAAAAAQAA
+ADNMBAAAAAEAAAA0TAQAAAABAAAAiDUEAAAAAAAAAIk1BAAAAAEAAIM=
+</macro_definitions>
+</analysisprotocol>

@@ -1,0 +1,445 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:3
+DateRevision:20160503183100
+GitHash:ac0529e
+ModuleCount:21
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:\'Unknown\'|variable_revision_number:2|show_window:False|notes:\x5B\'To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.\'\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:Images only
+    Select the rule criteria:and (extension does isimage) (directory doesnot containregexp "\x5B\\\\\\\\\\\\\\\\/\x5D\\\\\\\\.")
+
+Metadata:[module_num:2|svn_version:\'Unknown\'|variable_revision_number:4|show_window:False|notes:\x5B\'The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.\'\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{}
+    Extraction method count:1
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression:^(?P<Row>\x5BA-H\x5D*) - (?P<Column>\x5B0-9\x5D*)\\\\(fld (?P<Site>\x5B0-9\x5D*) wv (?P<Wavelength>.*) - (?P<Filter>.*)\\\\)
+    Regular expression:(?P<Date>\x5B0-9\x5D{4}_\x5B0-9\x5D{2}_\x5B0-9\x5D{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:
+    Match file and image metadata:\x5B\x5D
+    Use case insensitive matching?:No
+
+NamesAndTypes:[module_num:3|svn_version:\'Unknown\'|variable_revision_number:6|show_window:False|notes:\x5B\'The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.\'\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:Images matching rules
+    Select the image type:Grayscale image
+    Name to assign these images:DNA
+    Match metadata:\x5B\x5D
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:2
+    Single images count:0
+    Maximum intensity:255.0
+    Select the rule criteria:and (file does contain "DAPI")
+    Name to assign these images:Nuc_Parast
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Retain outlines of loaded objects?:No
+    Name the outline image:LoadedOutlines
+    Maximum intensity:255.0
+    Select the rule criteria:and (file does contain "Cy5")
+    Name to assign these images:HCSCellMask
+    Name to assign these objects:Nucleus
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Retain outlines of loaded objects?:No
+    Name the outline image:LoadedOutlines
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:\'Unknown\'|variable_revision_number:2|show_window:False|notes:\x5B\'The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.\'\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:No
+    grouping metadata count:1
+    Metadata category:None
+
+MeasureImageQuality:[module_num:5|svn_version:\'Unknown\'|variable_revision_number:5|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Calculate metrics for which images?:All loaded images
+    Image count:1
+    Scale count:1
+    Threshold count:1
+    Select the images to measure:
+    Include the image rescaling value?:Yes
+    Calculate blur metrics?:Yes
+    Spatial scale for blur measurements:20
+    Calculate saturation metrics?:Yes
+    Calculate intensity metrics?:Yes
+    Calculate thresholds?:Yes
+    Use all thresholding methods?:No
+    Select a thresholding method:Otsu
+    Typical fraction of the image covered by objects:0.1
+    Two-class or three-class thresholding?:Two classes
+    Minimize the weighted variance or the entropy?:Weighted variance
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+
+IdentifyPrimaryObjects:[module_num:6|svn_version:\'Unknown\'|variable_revision_number:10|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuc_Parast
+    Name the primary objects to be identified:Nuclei
+    Typical diameter of objects, in pixel units (Min,Max):18,50
+    Discard objects outside the diameter range?:Yes
+    Try to merge too small objects with nearby larger objects?:No
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Intensity
+    Method to draw dividing lines between clumped objects:Shape
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Name the outline image:PrimaryOutlines
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Retain outlines of the identified objects?:No
+    Automatically calculate the threshold using the Otsu method?:Yes
+    Enter Laplacian of Gaussian threshold:0.5
+    Automatically calculate the size of objects for the Laplacian of Gaussian filter?:Yes
+    Enter LoG filter diameter:5.0
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Threshold setting version:2
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Select the smoothing method for thresholding:Automatic
+    Threshold smoothing scale:0.5
+    Threshold correction factor:1.7
+    Lower and upper bounds on threshold:0.0,1.0
+    Approximate fraction of image covered by objects?:0.01
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Select binary image:None
+    Masking objects:None
+    Two-class or three-class thresholding?:Two classes
+    Minimize the weighted variance or the entropy?:Weighted variance
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Method to calculate adaptive window size:Image size
+    Size of adaptive window:10
+    Use default parameters?:Default
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+
+MeasureObjectSizeShape:[module_num:7|svn_version:\'Unknown\'|variable_revision_number:1|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select objects to measure:Nuclei
+    Calculate the Zernike features?:No
+
+DisplayDataOnImage:[module_num:8|svn_version:\'Unknown\'|variable_revision_number:6|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:Nuclei
+    Measurement to display:AreaShape_FormFactor
+    Select the image on which to display the measurements:Nuc_Parast
+    Text color:red
+    Name the output image that has the measurements displayed:DisplayImage
+    Font size (points):10
+    Number of decimals:2
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image\'s measurement range
+    Color map range:0.0,1.0
+
+FilterObjects:[module_num:9|svn_version:\'Unknown\'|variable_revision_number:7|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Name the output objects:FilteredNuc
+    Select the object to filter:Nuclei
+    Select the filtering mode:Measurements
+    Select the filtering method:Limits
+    Select the objects that contain the filtered objects:None
+    Retain outlines of the identified objects?:No
+    Name the outline image:FilteredObjects
+    Rules file location:Elsewhere...\x7C
+    Rules file name:rules.txt
+    Class number:1
+    Measurement count:1
+    Additional object count:0
+    Assign overlapping child to:Both parents
+    Select the measurement to filter by:AreaShape_FormFactor
+    Filter using a minimum measurement value?:Yes
+    Minimum value:0.6
+    Filter using a maximum measurement value?:Yes
+    Maximum value:1.0
+
+IdentifySecondaryObjects:[module_num:10|svn_version:\'Unknown\'|variable_revision_number:9|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:FilteredNuc
+    Name the objects to be identified:NucExp
+    Select the method to identify the secondary objects:Distance - N
+    Select the input image:Nuc_Parast
+    Number of pixels by which to expand the primary objects:4
+    Regularization factor:0.05
+    Name the outline image:FinalNucleiOutlines
+    Retain outlines of the identified secondary objects?:No
+    Discard secondary objects touching the border of the image?:Yes
+    Discard the associated primary objects?:No
+    Name the new primary objects:FinalNucExp
+    Retain outlines of the new primary objects?:No
+    Name the new primary object outlines:NucExpOutlines
+    Fill holes in identified objects?:Yes
+    Threshold setting version:2
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Select the smoothing method for thresholding:No smoothing
+    Threshold smoothing scale:1.0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.0,1.0
+    Approximate fraction of image covered by objects?:0.01
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Select binary image:None
+    Masking objects:None
+    Two-class or three-class thresholding?:Three classes
+    Minimize the weighted variance or the entropy?:Weighted variance
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Method to calculate adaptive window size:Image size
+    Size of adaptive window:10
+    Use default parameters?:Default
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+
+IdentifySecondaryObjects:[module_num:11|svn_version:\'Unknown\'|variable_revision_number:9|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:NucExp
+    Name the objects to be identified:Cells
+    Select the method to identify the secondary objects:Propagation
+    Select the input image:HCSCellMask
+    Number of pixels by which to expand the primary objects:10
+    Regularization factor:0.05
+    Name the outline image:CellOutlines
+    Retain outlines of the identified secondary objects?:No
+    Discard secondary objects touching the border of the image?:Yes
+    Discard the associated primary objects?:Yes
+    Name the new primary objects:FilteredCells
+    Retain outlines of the new primary objects?:No
+    Name the new primary object outlines:FilteredNucleiOutlines
+    Fill holes in identified objects?:Yes
+    Threshold setting version:2
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Select the smoothing method for thresholding:No smoothing
+    Threshold smoothing scale:1.0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.0,1.0
+    Approximate fraction of image covered by objects?:0.01
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Select binary image:None
+    Masking objects:None
+    Two-class or three-class thresholding?:Three classes
+    Minimize the weighted variance or the entropy?:Weighted variance
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Method to calculate adaptive window size:Image size
+    Size of adaptive window:10
+    Use default parameters?:Default
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+
+IdentifyTertiaryObjects:[module_num:12|svn_version:\'Unknown\'|variable_revision_number:2|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the larger identified objects:Cells
+    Select the smaller identified objects:NucExp
+    Name the tertiary objects to be identified:Cytoplasm
+    Name the outline image:CytoplasmOutlines
+    Retain outlines of the tertiary objects?:No
+    Shrink smaller object prior to subtraction?:No
+
+IdentifyPrimaryObjects:[module_num:13|svn_version:\'Unknown\'|variable_revision_number:10|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Nuc_Parast
+    Name the primary objects to be identified:Parasites
+    Typical diameter of objects, in pixel units (Min,Max):4,12
+    Discard objects outside the diameter range?:Yes
+    Try to merge too small objects with nearby larger objects?:No
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Intensity
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Name the outline image:ParasitesOutlines
+    Fill holes in identified objects?:After both thresholding and declumping
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Retain outlines of the identified objects?:Yes
+    Automatically calculate the threshold using the Otsu method?:Yes
+    Enter Laplacian of Gaussian threshold:0.5
+    Automatically calculate the size of objects for the Laplacian of Gaussian filter?:Yes
+    Enter LoG filter diameter:5.0
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Threshold setting version:2
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Select the smoothing method for thresholding:Automatic
+    Threshold smoothing scale:1.0
+    Threshold correction factor:0.85
+    Lower and upper bounds on threshold:0.0,1.0
+    Approximate fraction of image covered by objects?:0.01
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Select binary image:None
+    Masking objects:None
+    Two-class or three-class thresholding?:Three classes
+    Minimize the weighted variance or the entropy?:Weighted variance
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Method to calculate adaptive window size:Image size
+    Size of adaptive window:10
+    Use default parameters?:Default
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+
+MaskObjects:[module_num:14|svn_version:\'Unknown\'|variable_revision_number:2|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select objects to be masked:Parasites
+    Name the masked objects:MaskedParasites
+    Mask using a region defined by other objects or by binary image?:Objects
+    Select the masking object:Cytoplasm
+    Select the masking image:None
+    Handling of objects that are partially masked:Remove depending on overlap
+    Fraction of object that must overlap:0.5
+    Numbering of resulting objects:Renumber
+    Retain outlines of the resulting objects?:No
+    Name the outline image:MaskedOutlines
+    Invert the mask?:No
+
+RelateObjects:[module_num:15|svn_version:\'Unknown\'|variable_revision_number:2|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input child objects:MaskedParasites
+    Select the input parent objects:Cytoplasm
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Parent name:None
+
+OverlayOutlines:[module_num:16|svn_version:\'Unknown\'|variable_revision_number:3|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Display outlines on a blank image?:Yes
+    Select image on which to display outlines:Nuc_Parast
+    Name the output image:FinalOverlay
+    Outline display mode:Color
+    Select method to determine brightness of outlines:Max of image
+    Width of outlines:1
+    Select outlines to display:None
+    Select outline color:Red
+    Load outlines from an image or objects?:Objects
+    Select objects to display:Cytoplasm
+    Select outlines to display:None
+    Select outline color:blue
+    Load outlines from an image or objects?:Objects
+    Select objects to display:FilteredNuc
+    Select outlines to display:None
+    Select outline color:yellow
+    Load outlines from an image or objects?:Objects
+    Select objects to display:NucExp
+    Select outlines to display:None
+    Select outline color:green
+    Load outlines from an image or objects?:Objects
+    Select objects to display:MaskedParasites
+
+SaveImages:[module_num:17|svn_version:\'Unknown\'|variable_revision_number:11|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:FinalOverlay
+    Select the objects to save:None
+    Select the module display window to save:None
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:Nuc_Parast
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:No
+    Text to append to the image name:
+    Saved file format:tif
+    Output file location:Default Output Folder\x7CZ\x3A\\\\\\\\Gina Alves\\\\\\\\Teste CellProfiler\\\\\\\\TesteV02
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Rescale the images? :No
+    Save as grayscale or color image?:Grayscale
+    Select colormap:gray
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...\x7C
+    Saved movie format:avi
+
+DisplayDataOnImage:[module_num:18|svn_version:\'Unknown\'|variable_revision_number:6|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:Cytoplasm
+    Measurement to display:Children_MaskedParasites_Count
+    Select the image on which to display the measurements:FinalOverlay
+    Text color:red
+    Name the output image that has the measurements displayed:DisplayImage
+    Font size (points):12
+    Number of decimals:0
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image\'s measurement range
+    Color map range:0.0,1.0
+
+SaveImages:[module_num:19|svn_version:\'Unknown\'|variable_revision_number:11|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:DisplayImage
+    Select the objects to save:None
+    Select the module display window to save:None
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:Nuc_Parast
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:data
+    Saved file format:tif
+    Output file location:Default Output Folder\x7CZ\x3A\\\\\\\\Gina Alves\\\\\\\\Teste CellProfiler\\\\\\\\TesteV02
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Rescale the images? :No
+    Save as grayscale or color image?:Grayscale
+    Select colormap:gray
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...\x7C
+    Saved movie format:avi
+
+DisplayPlatemap:[module_num:20|svn_version:\'Unknown\'|variable_revision_number:2|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the object whose measurements will be displayed:Cytoplasm
+    Select the measurement to plot:Children_MaskedParasites_Count
+    Select your plate metadata:Metadata_Frame
+    Multiwell plate format:96
+    Select your well metadata:Metadata_Well
+    Select your well row metadata:Metadata_WellRow
+    Select your well column metadata:Metadata_WellCol
+    How should the values be aggregated?:avg
+    Enter a title for the plot, if desired:
+    Well metadata format:Well name
+
+ExportToSpreadsheet:[module_num:21|svn_version:\'Unknown\'|variable_revision_number:11|show_window:False|notes:\x5B\x5D|batch_state:array(\x5B\x5D, dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:Yes
+    Limit output to a size that is allowed in Excel?:No
+    Select the measurements to export:Yes
+    Calculate the per-image mean values for object measurements?:Yes
+    Calculate the per-image median values for object measurements?:No
+    Calculate the per-image standard deviation values for object measurements?:No
+    Output file location:Default Output Folder\x7CZ\x3A\\\\\\\\Gina Alves\\\\\\\\Teste CellProfiler\\\\\\\\TesteV02
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:None
+    Export all measurement types?:Yes
+    :MaskedParasites\x7CNumber_Object_Number,MaskedParasites\x7CParent_Cytoplasm,MaskedParasites\x7CParent_Parasites,MaskedParasites\x7CLocation_Center_Y,MaskedParasites\x7CLocation_Center_X,Cytoplasm\x7CChildren_MaskedParasites_Count,Cytoplasm\x7CNumber_Object_Number,Cytoplasm\x7CParent_NucExp,Cytoplasm\x7CParent_Cells,Cytoplasm\x7CLocation_Center_Y,Cytoplasm\x7CLocation_Center_X,Image\x7CCount_FilteredCells,Image\x7CCount_MaskedParasites,Image\x7CCount_Cytoplasm,Image\x7CCount_Cells,Image\x7CCount_FilteredNuc,Image\x7CCount_Parasites,Image\x7CCount_NucExp,Image\x7CCount_Nuclei,Image\x7CGroup_Index,Image\x7CGroup_Number,Image\x7CImageQuality_LocalFocusScore_HCSCellMask_20,Image\x7CImageQuality_LocalFocusScore_Nuc_Parast_20,Image\x7CImageQuality_ThresholdOtsu_HCSCellMask_2W,Image\x7CImageQuality_ThresholdOtsu_Nuc_Parast_2W,Image\x7CImageQuality_MinIntensity_HCSCellMask,Image\x7CImageQuality_MinIntensity_Nuc_Parast,Image\x7CImageQuality_StdIntensity_HCSCellMask,Image\x7CImageQuality_StdIntensity_Nuc_Parast,Image\x7CImageQuality_TotalIntensity_HCSCellMask,Image\x7CImageQuality_TotalIntensity_Nuc_Parast,Image\x7CImageQuality_PowerLogLogSlope_HCSCellMask,Image\x7CImageQuality_PowerLogLogSlope_Nuc_Parast,Image\x7CImageQuality_TotalArea_HCSCellMask,Image\x7CImageQuality_TotalArea_Nuc_Parast,Image\x7CImageQuality_MADIntensity_HCSCellMask,Image\x7CImageQuality_MADIntensity_Nuc_Parast,Image\x7CImageQuality_MeanIntensity_HCSCellMask,Image\x7CImageQuality_MeanIntensity_Nuc_Parast,Image\x7CImageQuality_Scaling_HCSCellMask,Image\x7CImageQuality_Scaling_Nuc_Parast,Image\x7CImageQuality_PercentMinimal_HCSCellMask,Image\x7CImageQuality_PercentMinimal_Nuc_Parast,Image\x7CImageQuality_FocusScore_HCSCellMask,Image\x7CImageQuality_FocusScore_Nuc_Parast,Image\x7CImageQuality_Correlation_HCSCellMask_20,Image\x7CImageQuality_Correlation_Nuc_Parast_20,Image\x7CImageQuality_MaxIntensity_HCSCellMask,Image\x7CImageQuality_MaxIntensity_Nuc_Parast,Image\x7CImageQuality_MedianIntensity_HCSCellMask,Image\x7CImageQuality_MedianIntensity_Nuc_Parast,Image\x7CImageQuality_PercentMaximal_HCSCellMask,Image\x7CImageQuality_PercentMaximal_Nuc_Parast,Image\x7CWidth_HCSCellMask,Image\x7CWidth_Nuc_Parast,Image\x7CExecutionTime_05MeasureImageQuality,Image\x7CExecutionTime_13IdentifyPrimaryObjects,Image\x7CExecutionTime_01Images,Image\x7CExecutionTime_04Groups,Image\x7CExecutionTime_09FilterObjects,Image\x7CExecutionTime_10IdentifySecondaryObjects,Image\x7CExecutionTime_02Metadata,Image\x7CExecutionTime_12IdentifyTertiaryObjects,Image\x7CExecutionTime_11IdentifySecondaryObjects,Image\x7CExecutionTime_20DisplayPlatemap,Image\x7CExecutionTime_03NamesAndTypes,Image\x7CExecutionTime_17SaveImages,Image\x7CExecutionTime_06IdentifyPrimaryObjects,Image\x7CExecutionTime_16OverlayOutlines,Image\x7CExecutionTime_14MaskObjects,Image\x7CExecutionTime_15RelateObjects,Image\x7CExecutionTime_07MeasureObjectSizeShape,Image\x7CExecutionTime_19SaveImages,Image\x7CExecutionTime_08DisplayDataOnImage,Image\x7CExecutionTime_18DisplayDataOnImage,Image\x7CSeries_HCSCellMask,Image\x7CSeries_Nuc_Parast,Image\x7CFrame_HCSCellMask,Image\x7CFrame_Nuc_Parast,Image\x7CURL_HCSCellMask,Image\x7CURL_Nuc_Parast,Image\x7CMD5Digest_HCSCellMask,Image\x7CMD5Digest_Nuc_Parast,Image\x7CScaling_HCSCellMask,Image\x7CScaling_Nuc_Parast,Image\x7CModuleError_05MeasureImageQuality,Image\x7CModuleError_13IdentifyPrimaryObjects,Image\x7CModuleError_01Images,Image\x7CModuleError_04Groups,Image\x7CModuleError_09FilterObjects,Image\x7CModuleError_12IdentifyTertiaryObjects,Image\x7CModuleError_18DisplayDataOnImage,Image\x7CModuleError_02Metadata,Image\x7CModuleError_14MaskObjects,Image\x7CModuleError_11IdentifySecondaryObjects,Image\x7CModuleError_20DisplayPlatemap,Image\x7CModuleError_03NamesAndTypes,Image\x7CModuleError_17SaveImages,Image\x7CModuleError_15RelateObjects,Image\x7CModuleError_10IdentifySecondaryObjects,Image\x7CModuleError_08DisplayDataOnImage,Image\x7CModuleError_06IdentifyPrimaryObjects,Image\x7CModuleError_07MeasureObjectSizeShape,Image\x7CModuleError_16OverlayOutlines,Image\x7CModuleError_19SaveImages,Image\x7CHeight_HCSCellMask,Image\x7CHeight_Nuc_Parast,Image\x7CPathName_HCSCellMask,Image\x7CPathName_Nuc_Parast,Image\x7CThreshold_OrigThreshold_Cells,Image\x7CThreshold_OrigThreshold_Nuclei,Image\x7CThreshold_OrigThreshold_Parasites,Image\x7CThreshold_SumOfEntropies_Cells,Image\x7CThreshold_SumOfEntropies_Nuclei,Image\x7CThreshold_SumOfEntropies_Parasites,Image\x7CThreshold_WeightedVariance_Nuclei,Image\x7CThreshold_WeightedVariance_Cells,Image\x7CThreshold_WeightedVariance_Parasites,Image\x7CThreshold_FinalThreshold_Cells,Image\x7CThreshold_FinalThreshold_Nuclei,Image\x7CThreshold_FinalThreshold_Parasites,Image\x7CFileName_HCSCellMask,Image\x7CFileName_Nuc_Parast,Image\x7CMetadata_FileLocation,Image\x7CMetadata_Column,Image\x7CMetadata_Series,Image\x7CMetadata_Frame,Image\x7CMetadata_Well,Image\x7CMetadata_Site,Image\x7CMetadata_Filter,Image\x7CMetadata_Wavelength,Image\x7CMetadata_Row
+    Representation of Nan/Inf:Null
+    Add a prefix to file names?:Yes
+    Filename prefix:MyExpt_
+    Overwrite existing files without warning?:No
+    Data to export:Cytoplasm
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
